@@ -4,6 +4,7 @@ const exerciseSchema = mongoose.Schema({
   title: String,
   description: String,
   url: String,
+  iframe: String,
   publish: Boolean,
 });
 const games = mongoose.model("game", exerciseSchema);

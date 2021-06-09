@@ -3,9 +3,9 @@ const cors = require("cors");
 const app = express();
 const db = require("./model");
 const games = db.games;
+const users = db.users;
 app.use(cors(corsOptions));
 app.use(express.json());
-
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -51,6 +51,8 @@ app.put("/api/games/update/:id", async (req, res) => {
           ? game.description
           : updateGame.newDescription;
       game.url = updateGame.newUrl == "" ? game.url : updateGame.newUrl;
+      game.iframe =
+        updateGame.newIframe == "" ? game.iframe : updateGame.newIframe;
       game.save();
       res.send(game);
     });
@@ -71,6 +73,32 @@ app.delete("/api/games/delete/:id", async (req, resp) => {
 });
 
 app.get("/api", (req, res) => {});
+//===============================================================================
+//================================USER============================================
+//===============================================================================
+let user_form = {
+  name: "Admin",
+  gmail: "Admin",
+  password: "conchuot123@",
+  description: "",
+  type: 0,
+  avatar: "String",
+  time_playgame: 2234,
+  earned_money: [], // money make for month
+  played_games: [], // list game played
+  interests: [], // list hobby
+  tooken: "radom",
+};
+app.post("/api/users/create", async (req, res) => {
+  let usera = new users(req.body);
+  console.log(usera);
+  try {
+    await usera.save();
+    res.send("Create user successfully !");
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
