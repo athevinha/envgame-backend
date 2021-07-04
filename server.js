@@ -59,13 +59,12 @@ app.put("/api/games/update/:id", async (req, res) => {
     console.log(err);
   }
 });
-app.delete("/api/games/delete/:id", async (req, resp) => {
-  let id = req.params.id;
-  await games.findOneAndDelete(id, (err, res) => {
+app.delete("/api/games/delete/:id", async (req, res) => {
+  let _id = req.params.id;
+  games.findByIdAndDelete(_id, (err, txt) => {
     try {
-      resp.send("delete ok");
+      res.send("Xóa thành công _ID: " + _id);
     } catch (err) {
-      console.log(err);
       resp.send(err);
     }
   });
@@ -74,19 +73,19 @@ app.delete("/api/games/delete/:id", async (req, resp) => {
 //===============================================================================
 //================================USER============================================
 //===============================================================================
-let user_form = {
-  name: "Admin",
-  gmail: "Admin",
-  password: "conchuot123@",
-  description: "",
-  type: 0,
-  avatar: "String",
-  time_playgame: 2234,
-  earned_money: [], // money make for month
-  played_games: [], // list game played
-  interests: [], // list hobby
-  tooken: "radom",
-};
+// let user_form = {
+//   name: "Admin",
+//   gmail: "Admin",
+//   password: "conchuot123@",
+//   description: "",
+//   type: 0,
+//   avatar: "String",
+//   time_playgame: 2234,
+//   earned_money: [0,0,0,0,0...], // money make for month
+//   played_games: [], // list game played
+//   interests: [], // list hobby
+//   tooken: "radom",
+// };
 app.post("/api/users/create", async (req, res) => {
   let usera = new users(req.body);
   console.log(usera);
