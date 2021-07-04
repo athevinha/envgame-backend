@@ -18,7 +18,6 @@ db.mongoose
     console.log(e);
     process.exit();
   });
-
 var corsOptions = {
   origin: "http://localhost:8081",
 };
@@ -72,7 +71,6 @@ app.delete("/api/games/delete/:id", async (req, resp) => {
   });
 });
 
-app.get("/api", (req, res) => {});
 //===============================================================================
 //================================USER============================================
 //===============================================================================
@@ -98,6 +96,14 @@ app.post("/api/users/create", async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
+app.get("/api/users/read", async (req, res) => {
+  users.find({}, (err, database) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(database);
+  });
 });
 
 // set port, listen for requests

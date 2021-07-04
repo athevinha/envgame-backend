@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 
 const exerciseSchema = mongoose.Schema({
-  name: String, // #
+  username: String, // #
   gmail: String, // #
-  passsword: String, // #
+  password: String, // #
   description: String, // #
   type: Number,
   avatar: String, // #
