@@ -104,7 +104,20 @@ app.get("/api/users/read", async (req, res) => {
     res.send(database);
   });
 });
-
+app.put("/api/users/update/:id", async (req, res) => {
+  let id = req.params.id;
+  let updateUser = req.body;
+  try {
+    await users.findById(id, (err, user) => {
+      user.played_games = updateUser.played_games;
+      user.time_gaming = updateUser.time_gaming;
+      user.save();
+      res.send(user);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
