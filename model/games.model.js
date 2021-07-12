@@ -5,7 +5,9 @@ const exerciseSchema = mongoose.Schema({
   description: String,
   url: String,
   iframe: String,
-  publish: Boolean,
+  love_game: Boolean,
+  how2play: String,
+  mobile_game: Boolean,
 });
 const games = mongoose.model("game", exerciseSchema);
 module.exports = games;

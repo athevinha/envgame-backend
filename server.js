@@ -4,6 +4,7 @@ const app = express();
 const db = require("./model");
 const games = db.games;
 const users = db.users;
+const feedbacks = db.feedbacks;
 app.use(cors(corsOptions));
 app.use(express.json());
 db.mongoose
@@ -44,14 +45,31 @@ app.put("/api/games/update/:id", async (req, res) => {
   let updateGame = req.body;
   try {
     await games.findById(id, (err, game) => {
+      //* title *
       game.title = updateGame.newTitle == "" ? game.title : updateGame.newTitle;
+      //* description *
       game.description =
         updateGame.newDescription == ""
           ? game.description
           : updateGame.newDescription;
+      //* url *
       game.url = updateGame.newUrl == "" ? game.url : updateGame.newUrl;
+      //* iframe *
       game.iframe =
         updateGame.newIframe == "" ? game.iframe : updateGame.newIframe;
+      //* love game *
+      game.love_game =
+        updateGame.newLove_game == null
+          ? game.love_game
+          : updateGame.newLove_game;
+      //* how2play *
+      game.how2play =
+        updateGame.newHow2play == "" ? game.how2play : updateGame.newHow2play;
+      //* Mobile game *
+      game.mobile_game =
+        updateGame.newNobile_game == null
+          ? game.mobile_game
+          : updateGame.newMobile_game;
       game.save();
       res.send(game);
     });
@@ -117,6 +135,24 @@ app.put("/api/users/update/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+// ========================== Feedback===========================
+app.post("/api/feedbacks/create", async (req, res) => {
+  let feedbacka = new feedbacks(req.body);
+  try {
+    await feedbacka.save();
+    res.send(req.body);
+  } catch (e) {
+    console.log(e);
+  }
+});
+app.get("/api/feedbacks/read", async (req, res) => {
+  feedbacks.find({}, (err, database) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(database);
+  });
 });
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
