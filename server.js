@@ -87,7 +87,19 @@ app.delete("/api/games/delete/:id", async (req, res) => {
     }
   });
 });
-
+app.put("/api/games/update_rank/:id", async (req, res) => {
+  let id = req.params.id;
+  let updateGame = req.body;
+  try {
+    await games.findById(id, (err, game) => {
+      game.rank = updateGame.rank;
+      game.save();
+      res.send(game);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
 //===============================================================================
 //================================USER============================================
 //===============================================================================
