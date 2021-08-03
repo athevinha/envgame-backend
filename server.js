@@ -91,19 +91,6 @@ app.delete("/api/games/delete/:id", async (req, res) => {
 //===============================================================================
 //================================USER============================================
 //===============================================================================
-// let user_form = {
-//   name: "Admin",
-//   gmail: "Admin",
-//   password: "conchuot123@",
-//   description: "",
-//   type: 0,
-//   avatar: "String",
-//   time_playgame: 2234,
-//   earned_money: [0,0,0,0,0...], // money make for month
-//   played_games: [], // list game played
-//   interests: [], // list hobby
-//   tooken: "radom",
-// };
 app.post("/api/users/create", async (req, res) => {
   let usera = new users(req.body);
   console.log(usera);
