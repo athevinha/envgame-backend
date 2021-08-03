@@ -24,7 +24,6 @@ var corsOptions = {
 };
 app.post("/api/games/create", async (req, res) => {
   let gamea = new games(req.body);
-  console.log(gamea);
   try {
     await gamea.save();
     res.send("Create game successfully !");
@@ -70,6 +69,7 @@ app.put("/api/games/update/:id", async (req, res) => {
         updateGame.newNobile_game == null
           ? game.mobile_game
           : updateGame.newMobile_game;
+      console.log(game);
       game.save();
       res.send(game);
     });
