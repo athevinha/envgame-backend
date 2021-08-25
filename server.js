@@ -154,6 +154,21 @@ app.get("/api/feedbacks/read", async (req, res) => {
   });
 });
 // set port, listen for requests
+var server = require("http").Server(app);
+var port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 6969;
+var io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+  },
+});
+io.on("connection", function (socket) {
+  console.log("+1 connections !!!");
+  socket.on("disconnect", function () {
+    console.log(socket.id + ": disconnected");
+  });
+});
+server.listen(port, () => console.log("Server running in port " + port));
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
