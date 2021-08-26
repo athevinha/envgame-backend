@@ -154,7 +154,6 @@ app.get("/api/feedbacks/read", async (req, res) => {
   });
 });
 var server = require("http").Server(app);
-var port = process.env.PORT || 6969;
 var io = require("socket.io")(server, {
   cors: {
     origin: "*",
@@ -169,9 +168,9 @@ io.on("connection", function (socket) {
     io.emit("send message", { data });
   });
 });
-server.listen(port, () => console.log("Server running in port " + port));
+// server.listen(port, () => console.log("Server running in port " + port));
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
