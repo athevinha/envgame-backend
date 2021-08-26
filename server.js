@@ -166,6 +166,9 @@ io.on("connection", function (socket) {
   socket.on("disconnect", function () {
     console.log(socket.id + ": disconnected");
   });
+  socket.on("send message", (data) => {
+    io.emit("send message", { data });
+  });
 });
 server.listen(port, () => console.log("Server running in port " + port));
 
