@@ -153,7 +153,6 @@ app.get("/api/feedbacks/read", async (req, res) => {
     res.send(database);
   });
 });
-// set port, listen for requests
 var server = require("http").Server(app);
 var port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 6969;
 var io = require("socket.io")(server, {
