@@ -154,7 +154,7 @@ app.get("/api/feedbacks/read", async (req, res) => {
   });
 });
 var server = require("http").Server(app);
-var port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 6969;
+var port = process.env.PORT || 6969;
 var io = require("socket.io")(server, {
   cors: {
     origin: "*",
