@@ -5,6 +5,7 @@ const db = require("./model");
 const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
+const chats = db.chats;
 app.use(cors(corsOptions));
 app.use(express.json());
 db.mongoose
@@ -152,6 +153,24 @@ app.get("/api/feedbacks/read", async (req, res) => {
     }
     res.send(database);
   });
+});
+// ========================== Feedback===========================
+app.get("/api/chats/read", async (req, res) => {
+  chats.find({}, (err, database) => {
+    if (err) {
+      res.send(err);
+    }
+    res.send(database);
+  });
+});
+app.post("/api/chats/create", async (req, res) => {
+  let chata = new chats(req.body);
+  try {
+    await chata.save();
+    res.send("Create user successfully !");
+  } catch (e) {
+    console.log(e);
+  }
 });
 var server = require("http").Server(app);
 var io = require("socket.io")(server, {

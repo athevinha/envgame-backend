@@ -7,4 +7,5 @@ db.mongoose = mongoose;
 db.games = require("./games.model");
 db.users = require("./user.model");
 db.feedbacks = require("./feedback.model");
+db.chats = require("./chat.model");
 module.exports = db;
