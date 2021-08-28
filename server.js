@@ -15,30 +15,8 @@ const got = require("got");
 const apiKey = "acc_a94e63861293515";
 const apiSecret = "efbb7c90953b168a17e03eae9495edb6";
 
-const imageUrl = "link image example...";
+let imageUrl = "link image example...";
 
-app.post("/api/AI/detect", async (req, res) => {
-  console.log("??");
-  imageUrl = req.body;
-  const url =
-    "https://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(imageUrl);
-  try {
-    await (() => {
-      try {
-        const response = got(url, {
-          username: apiKey,
-          password: apiSecret,
-        });
-        console.log(response.body);
-        res.send(response.body);
-      } catch (error) {
-        console.log(error.response.body);
-      }
-    })();
-  } catch (err) {
-    console.log(err);
-  }
-});
 // ====================================================================================================
 // ====================================================================================================
 db.mongoose
@@ -218,6 +196,23 @@ io.on("connection", function (socket) {
   });
   socket.on("send message", (data) => {
     io.emit("send message", { data });
+  });
+  socket.on("AI detect", (img) => {
+    imageUrl = img;
+    let url =
+      "https://api.imagga.com/v2/tags?image_url=" +
+      encodeURIComponent(imageUrl);
+    (async () => {
+      try {
+        const response = await got(url, {
+          username: apiKey,
+          password: apiSecret,
+        });
+        io.emit("AI detect", response.body);
+      } catch (error) {
+        console.log(error.response.body);
+      }
+    })();
   });
 });
 // server.listen(port, () => console.log("Server running in port " + port));
