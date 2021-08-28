@@ -8,6 +8,39 @@ const feedbacks = db.feedbacks;
 const chats = db.chats;
 app.use(cors(corsOptions));
 app.use(express.json());
+// ====================================================================================================
+// ====================================================================================================
+const got = require("got");
+
+const apiKey = "acc_a94e63861293515";
+const apiSecret = "efbb7c90953b168a17e03eae9495edb6";
+
+const imageUrl = "link image example...";
+
+app.post("/api/AI/detect", async (req, res) => {
+  console.log("??");
+  imageUrl = req.body;
+  const url =
+    "https://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(imageUrl);
+  try {
+    await (() => {
+      try {
+        const response = got(url, {
+          username: apiKey,
+          password: apiSecret,
+        });
+        console.log(response.body);
+        res.send(response.body);
+      } catch (error) {
+        console.log(error.response.body);
+      }
+    })();
+  } catch (err) {
+    console.log(err);
+  }
+});
+// ====================================================================================================
+// ====================================================================================================
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
