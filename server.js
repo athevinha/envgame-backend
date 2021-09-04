@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./model");
+const FormData = require("form-data");
+const fs = require("fs");
 const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
@@ -13,7 +15,7 @@ app.use(express.json());
 const got = require("got");
 
 const apiKey = "acc_a94e63861293515";
-const apiSecret = "efbb7c90953b168a17e03eae9495edb6";
+const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 
 let imageUrl = "link image example...";
 
@@ -231,7 +233,6 @@ io.on("connection", function (socket) {
     })();
   });
 });
-// server.listen(port, () => console.log("Server running in port " + port));
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
