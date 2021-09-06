@@ -17,7 +17,11 @@ module.exports = {
         });
         // console.log("result: ");
         // console.log(response.body);
-        IO.emit("AI detect", response.body);
+        let AI_IN4 = {
+          detection: response.body,
+          type: "imagga",
+        };
+        IO.emit("AI detect", AI_IN4);
       } catch (error) {
         console.log(error.response.body);
       }
@@ -42,7 +46,12 @@ module.exports = {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
+        let AI_IN4 = {
+          detection: response.data,
+          type: "vision",
+        };
+        console.log(AI_IN4.detection);
+        IO.emit("AI detect", AI_IN4);
       })
       .catch(function (error) {
         console.error(error);

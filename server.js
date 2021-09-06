@@ -7,6 +7,7 @@ const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
 const chats = db.chats;
+
 app.use(cors(corsOptions));
 app.use(express.json());
 db.mongoose
@@ -204,7 +205,10 @@ io.on("connection", function (socket) {
     io.emit("send message", { data });
   });
   socket.on("AI detect", (img) => {
-    check_is_leaf.detection_imagga(img, io);
+    //check mode here
+    if (img.mode == "" || img.mode == "imagga" || img.mode == null)
+      check_is_leaf.detection_imagga(img.url, io);
+    else check_is_leaf.detetion_vision(img.url, io);
   });
 });
 
