@@ -4,7 +4,7 @@ const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 const axios = require("axios").default;
 module.exports = {
   detection_imagga: function (UPLOAD_URL, IO) {
-    console.log("loading detection... ");
+    console.log("loading detection... for:" + UPLOAD_URL);
     const url =
       "http://api.imagga.com/v2/tags?image_url=" +
       encodeURIComponent(UPLOAD_URL);
@@ -15,11 +15,10 @@ module.exports = {
           username: apiKey,
           password: apiSecret,
         });
-        // console.log("result: ");
-        // console.log(response.body);
-        let AI_IN4 = {
+        // console.log("load successfully!");
+        const AI_IN4 = {
           detection: response.body,
-          type: "imagga",
+          mode: "imagga",
         };
         IO.emit("AI detect", AI_IN4);
       } catch (error) {
@@ -46,11 +45,11 @@ module.exports = {
     axios
       .request(options)
       .then(function (response) {
-        let AI_IN4 = {
-          detection: response.data,
-          type: "vision",
+        console.log(response.data);
+        const AI_IN4 = {
+          detection: response.data.webDetection.webEntities,
+          mode: "vision",
         };
-        console.log(AI_IN4.detection);
         IO.emit("AI detect", AI_IN4);
       })
       .catch(function (error) {
