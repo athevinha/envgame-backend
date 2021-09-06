@@ -2,25 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./model");
-const FormData = require("form-data");
-const fs = require("fs");
+const check_is_leaf = require("./check_is_leaf_api");
 const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
 const chats = db.chats;
 app.use(cors(corsOptions));
 app.use(express.json());
-// ====================================================================================================
-// ====================================================================================================
-const got = require("got");
-
-const apiKey = "acc_a94e63861293515";
-const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
-
-let imageUrl = "link image example...";
-
-// ====================================================================================================
-// ====================================================================================================
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -216,21 +204,7 @@ io.on("connection", function (socket) {
     io.emit("send message", { data });
   });
   socket.on("AI detect", (img) => {
-    imageUrl = img;
-    let url =
-      "https://api.imagga.com/v2/tags?image_url=" +
-      encodeURIComponent(imageUrl);
-    (async () => {
-      try {
-        const response = await got(url, {
-          username: apiKey,
-          password: apiSecret,
-        });
-        io.emit("AI detect", response.body);
-      } catch (error) {
-        console.log(error.response.body);
-      }
-    })();
+    check_is_leaf.detection_imagga(img, io);
   });
 });
 
