@@ -4,7 +4,7 @@ const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 const axios = require("axios").default;
 module.exports = {
   detection_imagga: function (UPLOAD_URL, IO) {
-    console.log("loading detection... for:" + UPLOAD_URL);
+    console.log("loading detection imagga... for:" + UPLOAD_URL);
     const url =
       "http://api.imagga.com/v2/tags?image_url=" +
       encodeURIComponent(UPLOAD_URL);
@@ -20,13 +20,14 @@ module.exports = {
           detection: response.body,
           mode: "imagga",
         };
-        IO.emit("AI detect", AI_IN4);
+        IO.emit("AI detect imagga", AI_IN4);
       } catch (error) {
         console.log(error.response.body);
       }
     })();
   },
   detetion_vision: function (UPLOAD_URL, IO) {
+    console.log("loading detection vision... for:" + UPLOAD_URL);
     // dự phòng nếu imagga API kiểm tra là lá bị hỏng
     var options = {
       method: "POST",
@@ -50,7 +51,7 @@ module.exports = {
           detection: response.data.webDetection.webEntities,
           mode: "vision",
         };
-        IO.emit("AI detect", AI_IN4);
+        IO.emit("AI detect vision", AI_IN4);
       })
       .catch(function (error) {
         console.error(error);
