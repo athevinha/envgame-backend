@@ -2,7 +2,8 @@ const got = require("got"); // if you don't have "got" - install it with "npm in
 const apiKey = "acc_a94e63861293515";
 const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 const axios = require("axios").default;
-  function detection_imagga (UPLOAD_URL, IO) {
+module.exports = {
+  detection_imagga: function (UPLOAD_URL, IO) {
     console.log("loading detection imagga... for:" + UPLOAD_URL);
     const url =
       "http://api.imagga.com/v2/tags?image_url=" +
@@ -24,8 +25,8 @@ const axios = require("axios").default;
         console.log(error.response.body);
       }
     })();
-  }
-   function detetion_vision(UPLOAD_URL, IO) {
+  },
+  detetion_vision: function (UPLOAD_URL, IO) {
     console.log("loading detection vision... for:" + UPLOAD_URL);
     // dự phòng nếu imagga API kiểm tra là lá bị hỏng
     var options = {
@@ -55,4 +56,5 @@ const axios = require("axios").default;
       .catch(function (error) {
         console.error(error);
       });
-  }
+  },
+};
