@@ -202,7 +202,6 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-// const io = require("socket.io")(server);
 // io.on("connection", function (socket) {
 //   console.log("+1 connections !!!");
 //   socket.on("disconnect", function () {
