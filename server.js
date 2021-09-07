@@ -191,87 +191,86 @@ app.post("/api/envgame/conchuot2945@/2945/chats/create", async (req, res) => {
   }
 });
 
-const got = require("got"); // if you don't have "got" - install it with "npm install got"
-const apiKey = "acc_a94e63861293515";
-const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
-const axios = require("axios").default;
-function detection_imagga(UPLOAD_URL, IO) {
-  console.log("loading detection imagga... for:" + UPLOAD_URL);
-  const url =
-    "http://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(UPLOAD_URL);
+// const got = require("got"); // if you don't have "got" - install it with "npm install got"
+// const apiKey = "acc_a94e63861293515";
+// const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
+// const axios = require("axios").default;
+// function detection_imagga(UPLOAD_URL, IO) {
+//   console.log("loading detection imagga... for:" + UPLOAD_URL);
+//   const url =
+//     "http://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(UPLOAD_URL);
 
-  (async () => {
-    try {
-      const response = await got(url, {
-        username: apiKey,
-        password: apiSecret,
-      });
-      // console.log("load successfully!");
-      const AI_IN4 = {
-        detection: response.body,
-        mode: "imagga",
-      };
-      IO.emit("AI detect imagga", AI_IN4);
-    } catch (error) {
-      console.log(error.response.body);
-    }
-  })();
-}
-function detetion_vision(UPLOAD_URL, IO) {
-  console.log("loading detection vision... for:" + UPLOAD_URL);
-  // dự phòng nếu imagga API kiểm tra là lá bị hỏng
-  var options = {
-    method: "POST",
-    url: "https://google-ai-vision.p.rapidapi.com/cloudVision/imageCopyrightInfringementDetection",
-    headers: {
-      "content-type": "application/json",
-      "x-rapidapi-host": "google-ai-vision.p.rapidapi.com",
-      "x-rapidapi-key": "eb97f0d321mshb47557d453f72dcp1c0748jsne543b4e7e6e3",
-    },
-    data: {
-      source: UPLOAD_URL,
-      sourceType: "url",
-    },
-  };
+//   (async () => {
+//     try {
+//       const response = await got(url, {
+//         username: apiKey,
+//         password: apiSecret,
+//       });
+//       // console.log("load successfully!");
+//       const AI_IN4 = {
+//         detection: response.body,
+//         mode: "imagga",
+//       };
+//       IO.emit("AI detect imagga", AI_IN4);
+//     } catch (error) {
+//       console.log(error.response.body);
+//     }
+//   })();
+// }
+// function detetion_vision(UPLOAD_URL, IO) {
+//   console.log("loading detection vision... for:" + UPLOAD_URL);
+//   // dự phòng nếu imagga API kiểm tra là lá bị hỏng
+//   var options = {
+//     method: "POST",
+//     url: "https://google-ai-vision.p.rapidapi.com/cloudVision/imageCopyrightInfringementDetection",
+//     headers: {
+//       "content-type": "application/json",
+//       "x-rapidapi-host": "google-ai-vision.p.rapidapi.com",
+//       "x-rapidapi-key": "eb97f0d321mshb47557d453f72dcp1c0748jsne543b4e7e6e3",
+//     },
+//     data: {
+//       source: UPLOAD_URL,
+//       sourceType: "url",
+//     },
+//   };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-      const AI_IN4 = {
-        detection: response.data.webDetection.webEntities,
-        mode: "vision",
-      };
-      IO.emit("AI detect vision", AI_IN4);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-}
+//   axios
+//     .request(options)
+//     .then(function (response) {
+//       console.log(response.data);
+//       const AI_IN4 = {
+//         detection: response.data.webDetection.webEntities,
+//         mode: "vision",
+//       };
+//       IO.emit("AI detect vision", AI_IN4);
+//     })
+//     .catch(function (error) {
+//       console.error(error);
+//     });
+// }
 
-var server = require("http").Server(app);
-var io = require("socket.io")(server, {
-  cors: {
-    origin: "*",
-  },
-});
-io.on("connection", function (socket) {
-  console.log("+1 connections !!!");
-  socket.on("disconnect", function () {
-    console.log(socket.id + ": disconnected");
-  });
-  socket.on("send message", (data) => {
-    io.emit("send message", { data });
-  });
-  // socket.on("AI detect", (img) => {
-  //   //check mode here
-  //   if (img.mode == "" || img.mode == "imagga" || img.mode == null)
-  //     detection_imagga(img.url, io);
-  //   else detetion_vision(img.url, io);
-  // });
-});
-
+// var server = require("http").Server(app);
+// var io = require("socket.io")(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
+// io.on("connection", function (socket) {
+//   console.log("+1 connections !!!");
+//   socket.on("disconnect", function () {
+//     console.log(socket.id + ": disconnected");
+//   });
+//   socket.on("send message", (data) => {
+//     io.emit("send message", { data });
+//   });
+//   socket.on("AI detect", (img) => {
+//     //check mode here
+//     if (img.mode == "" || img.mode == "imagga" || img.mode == null)
+//       detection_imagga(img.url, io);
+//     else detetion_vision(img.url, io);
+//   });
+// });
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
