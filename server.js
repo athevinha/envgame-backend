@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const db = require("./model");
-// const check_is_leaf = require("./check_is_leaf_api");
+const check_is_leaf = require("./check_is_leaf_api");
 const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
 const chats = db.chats;
-
+const got = require("got");
+const apiKey = "acc_a94e63861293515";
+const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 app.use(cors(corsOptions));
 app.use(express.json());
 
@@ -177,11 +179,29 @@ app.post("/api/envgame/chats/create", async (req, res) => {
     console.log(e);
   }
 });
+app.post("/api/envgame/ai/detect", async (req, res) => {
+  const url =
+    "http://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(req.body);
+  (async () => {
+    try {
+      const response = await got(url, {
+        username: apiKey,
+        password: apiSecret,
+      });
+      const AI_IN4 = {
+        detection: response.body,
+        mode: "imagga",
+      };
+      res.send(AI_IN4);
+    } catch (error) {
+      console.error(error);
+    }
+  })();
+});
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
 // const io = require("socket.io")(server);
 // io.on("connection", function (socket) {
 //   console.log("+1 connections !!!");
