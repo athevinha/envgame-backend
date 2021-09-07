@@ -191,28 +191,30 @@ app.post("/api/envgame/conchuot2945@/2945/chats/create", async (req, res) => {
   }
 });
 
-var server = require("http").Server(app);
-// var io = require("socket.io")(server, {
+// var server = require("http").Server(app);
+// const options = {
 //   cors: {
 //     origin: "*",
 //   },
-// });
-// io.on("connection", function (socket) {
-//   console.log("+1 connections !!!");
-//   socket.on("disconnect", function () {
-//     console.log(socket.id + ": disconnected");
-//   });
-//   socket.on("send message", (data) => {
-//     io.emit("send message", { data });
-//   });
-//   socket.on("AI detect", (img) => {
-//     //check mode here
-//     if (img.mode == "" || img.mode == "imagga" || img.mode == null)
-//       check_is_leaf.detection_imagga(img.url, io);
-//     else check_is_leaf.detetion_vision(img.url, io);
-//   });
-// });
+// };
+
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+});
+const io = require("socket.io")(server);
+io.on("connection", function (socket) {
+  console.log("+1 connections !!!");
+  socket.on("disconnect", function () {
+    console.log(socket.id + ": disconnected");
+  });
+  socket.on("send message", (data) => {
+    io.emit("send message", { data });
+  });
+  socket.on("AI detect", (img) => {
+    //check mode here
+    if (img.mode == "" || img.mode == "imagga" || img.mode == null)
+      check_is_leaf.detection_imagga(img.url, io);
+    else check_is_leaf.detetion_vision(img.url, io);
+  });
 });
