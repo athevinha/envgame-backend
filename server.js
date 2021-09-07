@@ -179,25 +179,25 @@ app.post("/api/envgame/chats/create", async (req, res) => {
     console.log(e);
   }
 });
-app.post("/api/envgame/ai/detect", async (req, res) => {
-  const url =
-    "http://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(req.body);
-  (async () => {
-    try {
-      const response = await got(url, {
-        username: apiKey,
-        password: apiSecret,
-      });
-      const AI_IN4 = {
-        detection: response.body,
-        mode: "imagga",
-      };
-      res.send(AI_IN4);
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-});
+// app.post("/api/envgame/ai/detect", async (req, res) => {
+//   const url =
+//     "http://api.imagga.com/v2/tags?image_url=" + encodeURIComponent(req.body);
+//   (async () => {
+//     try {
+//       const response = await got(url, {
+//         username: apiKey,
+//         password: apiSecret,
+//       });
+//       const AI_IN4 = {
+//         detection: response.body,
+//         mode: "imagga",
+//       };
+//       res.send(AI_IN4);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   })();
+// });
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
