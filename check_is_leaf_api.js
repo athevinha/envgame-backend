@@ -3,7 +3,7 @@ const apiKey = "acc_a94e63861293515";
 const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 const axios = require("axios").default;
 module.exports = {
-  detection_imagga: function (UPLOAD_URL) {
+  detection_imagga: function (UPLOAD_URL, IO) {
     console.log("loading detection imagga... for:" + UPLOAD_URL);
     const url =
       "http://api.imagga.com/v2/tags?image_url=" +
@@ -15,19 +15,19 @@ module.exports = {
           username: apiKey,
           password: apiSecret,
         });
-        // console.log("load successfully!");
+        console.log("load successfully!");
         AI_IN4 = {
           detection: response.body,
           mode: "imagga",
         };
-        // IO.emit("AI detect imagga", AI_IN4);
+        IO.emit("AI detect imagga", AI_IN4);
       } catch (error) {
         console.error(error);
       }
       return AI_IN4;
     })();
   },
-  detetion_vision: function (UPLOAD_URL) {
+  detetion_vision: function (UPLOAD_URL, IO) {
     console.log("loading detection vision... for:" + UPLOAD_URL);
     // dự phòng nếu imagga API kiểm tra là lá bị hỏng
     var options = {
