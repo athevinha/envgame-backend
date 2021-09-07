@@ -14,6 +14,7 @@ app.use(express.json());
 var corsOptions = {
   origin: "http://localhost:8081",
 };
+
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
@@ -158,7 +159,7 @@ app.get("/api/envgame/feedbacks/read", async (req, res) => {
     res.send(database);
   });
 });
-// ========================== Feedback===========================
+// ========================== Chat===========================
 app.get("/api/envgame/chats/read", async (req, res) => {
   chats.find({}, (err, database) => {
     if (err) {
@@ -171,7 +172,7 @@ app.post("/api/envgame/chats/create", async (req, res) => {
   let chata = new chats(req.body);
   try {
     await chata.save();
-    res.send("Create user successfully !");
+    res.send(req.body);
   } catch (e) {
     console.log(e);
   }
@@ -180,14 +181,8 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-// var server = require("http").Server(app);
-// const options = {
-//   cors: {
-//     origin: "*",
-//   },
-// };
-// const io = require("socket.io")(server, options);
 
+// const io = require("socket.io")(server);
 // io.on("connection", function (socket) {
 //   console.log("+1 connections !!!");
 //   socket.on("disconnect", function () {
