@@ -7,9 +7,9 @@ const games = db.games;
 const users = db.users;
 const feedbacks = db.feedbacks;
 const chats = db.chats;
-const got = require("got");
-const apiKey = "acc_a94e63861293515";
-const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
+// const got = require("got");
+// const apiKey = "acc_a94e63861293515";
+// const apiSecret = "616653c74f9bdf3d2c6595aea6c3dffa";
 app.use(cors(corsOptions));
 app.use(express.json());
 
