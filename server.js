@@ -192,14 +192,14 @@ app.post("/api/envgame/conchuot2945@/2945/chats/create", async (req, res) => {
 });
 
 // var server = require("http").Server(app);
-const options = {
-  cors: {
-    origin: "*",
-  },
-};
+// const options = {
+//   cors: {
+//     origin: "*",
+//   },
+// };
 
 const PORT = process.env.PORT || 8080;
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 // const io = require("socket.io")(server, options);
