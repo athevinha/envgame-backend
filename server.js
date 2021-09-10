@@ -202,18 +202,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-// io.on("connection", function (socket) {
-//   console.log("+1 connections !!!");
-//   socket.on("disconnect", function () {
-//     console.log(socket.id + ": disconnected");
-//   });
-//   socket.on("send message", (data) => {
-//     io.emit("send message", { data });
-//   });
-//   socket.on("AI detect", (img) => {
-//     //check mode here
-//     if (img.mode == "" || img.mode == "imagga" || img.mode == null)
-//       check_is_leaf.detection_imagga(img.url, io);
-//     else check_is_leaf.detetion_vision(img.url, io);
-//   });
-// });
+// hackathon nghe an 2021
