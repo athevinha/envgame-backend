@@ -4,6 +4,6 @@ Envgame - game design platform that increases the ratio of plants to the environ
 ## STEP1: Install package
 npm install
 ## STEP2: Start
-npm run nm 
+npm run nm <br/>
 start server successfully 
 
