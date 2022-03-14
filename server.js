@@ -17,7 +17,7 @@ cloudinary.config({
 });
 
 app.use(cors(corsOptions));
-app.use(express.json());
+// app.use(express.json());
 app.use(express.json({ limit: "50mb" }));
 
 var corsOptions = {
@@ -206,7 +206,8 @@ app.post("/api/envgame/ai/detect", async (req, res) => {
     console.error(error);
   }
 });
-app.post("/upload", (req, res) => {
+
+app.post("/api/envgame/upload", (req, res) => {
   let base64 = req.body.base64;
   cloudinary.uploader.upload(base64, function (error, result) {
     console.log(result, error);
