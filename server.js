@@ -201,7 +201,9 @@ app.post("/api/envgame/ai/detect", async (req, res) => {
       detection: response.body,
       mode: "imagga",
     };
-    res.send(AI_IN4);
+    res.send(
+      JSON.parse(AI_IN4.detection).result.tags.filter((detect, id) => id < 5)
+    );
   } catch (error) {
     console.error(error);
   }
@@ -211,7 +213,7 @@ app.post("/api/envgame/upload", (req, res) => {
   let base64 = req.body.base64;
   cloudinary.uploader.upload(base64, function (error, result) {
     console.log(result, error);
-    res.send({ result, error });
+    res.send({ result: result.url, error });
   });
   //   res.send("vdf");
 });
